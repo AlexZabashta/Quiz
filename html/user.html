@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html style="width: 100%; height: 100%; overflow:hidden">
+	<head>
+		<meta charset="utf-8">
+		<title>Quiz</title>
+		<script>
+			
+			function fullscreen() {
+				if ('wakeLock' in navigator) {
+					wakeLock = navigator.wakeLock.request('screen');
+				}
+				screen.keepAwake = true;
+				var elem = document.getElementById("btn");
+				if (elem.requestFullscreen) {
+					elem.requestFullscreen();
+				} else if (elem.webkitRequestFullscreen) {
+					elem.webkitRequestFullscreen();
+				} else if (elem.msRequestFullscreen) {
+					elem.msRequestFullscreen();
+				}
+			}
+			
+			
+			function buttonPressed() {				
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', window.location.href + '/buttonPressed', true);
+				xhr.send();
+			}
+		</script>
+	</head>
+	<body style="width: 100%; height: 100%; margin-bottom: auto; margin-left: auto; margin-top: auto; margin-right: auto;">
+		<button type="button" style="width: 100%; height: 20%;" onclick="fullscreen()">Fullscreen</button>
+		<button type="button" id="btn" style="width: 100%; height: 80%;" onclick="buttonPressed()">Answer!</button>
+	</body>
+</html>
