@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html style="width: 100%; height: 100%; overflow:hidden">
+	<head>
+		<meta charset="utf-8">
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👌</text></svg>" />
+		<title>Quiz</title>
+	</head>
+	<body style="width: 100%; height: 100%; margin: auto; background: linear-gradient(270deg, #fffbae, #BFFFA8);">
+		<table border = 1 style="width: 100%; height: 100%;  border-collapse:collapse;">
+			<tbody>
+				<tr style="height: 85%;">
+					<td style="width: 20%;">
+						part
+					</td>
+					<td align="center" id="src" style="width: 80%; text-align: center; margin: auto;">
+						part
+					</td>
+				</tr>
+				<tr style="height: 15%; ">
+					<td style="width: 20%; ">
+						<div id="answer" style="width: 100%; height: 100%;"></div>
+						<script>
+							src = document.getElementById('src');
+							positionInfo = src.getBoundingClientRect();
+							dst = document.getElementById('dst');
+							if (dst != null) {
+								dst.style.width = (positionInfo.width|0)+"px";
+								dst.style.height =(positionInfo.height|0)+"px";
+							}
+							function getAnswerBlock() {
+								xhr = new XMLHttpRequest();
+								xhr.open('GET', '/answer/');
+								xhr.send();
+								xhr.onload = function() {
+									document.getElementById("answer").innerHTML = xhr.responseText;
+									if ((xhr.status != 200 || xhr.responseText.includes("stop"))) {
+										clearInterval(intervalAns);
+									}
+								};
+							}
+							intervalAns = setInterval(getAnswerBlock, 333);
+						</script>
+					</td>
+					<td style="width: 80%; ">
+						part
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
